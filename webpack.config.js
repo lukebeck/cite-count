@@ -1,7 +1,11 @@
-const EmojiFaviconPlugin = require('emoji-favicon-webpack-plugin');
+const EmojiFaviconPlugin = require("emoji-favicon-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
 module.exports = {
+  output: {
+    path: path.resolve("./docs")
+  },
   module: {
     rules: [
       {
@@ -26,7 +30,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new EmojiFaviconPlugin('📖'),
+    new EmojiFaviconPlugin("📖"),
     new HtmlWebPackPlugin({
       template: "./src/index.html",
       filename: "./index.html"
