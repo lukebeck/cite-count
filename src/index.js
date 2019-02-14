@@ -1,2 +1,3 @@
+import 'normalize.css'
 import './styles/app.css';
-import FormContainer from "./js/components/container/FormContainer.jsx";
+import App from "./js/components/App.jsx";

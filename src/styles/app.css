@@ -1,3 +1,68 @@
-body {
-    background-color: grey;
+@import url("https://fonts.googleapis.com/css?family=Quicksand|Josefin+Slab");
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  font-family: "Quicksand", sans-serif;
+}
+
+.side {
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100vw;
+  border: 1px solid black;
+}
+
+.content {
+    border: 1px solid black;
+  flex: auto;
+  overflow: scroll;
+  order: 2;
+  height: 100vh;
+}
+
+h1 {
+  font-family: "Josefin slab", sans-serif;
+  margin: 0;
+  font-size: 2rem;
+  color: rgb(50,100,250);
+}
+
+h2 {
+  font-family: "Josefin slab", sans-serif;
+  font-style: italic;
+  margin: 0;
+  font-size: 1.2rem;
+  color: rgb(130,130,130);
+}
+
+textarea {
+  padding: 50px;
+  width: 90%;
+  height: 100vh;
+  resize: none;
+  flex: 1 1 auto;
+  border: 0px solid black;
+}
+
+
+@media all and (min-width: 800px) {
+  .content {
+    flex: 3 0px;
+  }
+  .side {
+    order: 1;
+    flex: 1 0 0;
+  }
+  .content {
+    order: 2;
+  }
+}
+
+.Disclaimer {
+  font-style: italic;
+  font-size: .7rem;
+  color: rgb(130,130,130)
 }
