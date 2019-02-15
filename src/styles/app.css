@@ -23,6 +23,10 @@
   height: 100vh;
 }
 
+.github {
+  align-self: flex-end;
+}
+
 h1 {
   font-family: "Josefin slab", sans-serif;
   margin: 0;
@@ -58,6 +62,11 @@ textarea {
   }
   .content {
     order: 2;
+  }
+  .github {
+    justify-self: flex-end;
+    flex: 1 1 auto;
+    align-self: flex-start;
   }
 }
 
