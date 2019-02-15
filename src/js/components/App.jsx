@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
+import Textbox from './Textbox.jsx';
 
 const brackets = /\(.*?\).?/gi;
 const whitespace = /\s+/gi;
@@ -9,27 +10,20 @@ const format = text => text.replace(brackets, "");
 const citations = text =>
   text.match(brackets) == null ? 0 : text.match(brackets).length;
 
-const wordCount = text => {
-  let totalWords = count(text);
-  let formattedCount = count(format(text));
-  let citationWords = totalWords - formattedCount;
-  let citationCount = citations(text);
+const plural = (count, word) => (count == 1 ? word : word + 's')
 
-  return `
-      This text has ${totalWords} words in total. 
-      ${citationCount} citations use ${citationWords} words.
-      This text has ${formattedCount} words without citations.
-      `;
-};
+const Data = (props) => <div>
+  <p>Word count: <span>{props.data.totalCount}</span></p>
+  <p>Word count excluding citations: <span>{props.data.formattedCount}</span></p>
+  <p>This text uses <b>{props.data.totalCount - props.data.formattedCount}</b> {plural((props.data.totalCount - props.data.formattedCount), 'word')} across <b>{props.data.citationCount}</b> {plural(props.data.citationCount,'citation')}.</p>
+</div>
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.state = {
-      text: "Enter text here",
-      welcome:
-        "Enter your text in the box below to get information on word count"
+      text: "Enter text (with citations) here...",
     };
   }
 
@@ -37,13 +31,23 @@ class App extends React.Component {
     this.setState({ text });
   }
 
+  analyseText(text) {
+    let results = {
+      totalCount: count(text),
+      formattedCount: count(format(text)),
+      citationCount: citations(text),
+    }
+    return results
+  };
+
   render() {
+    
     return (
       <div className="container">
         <div className="side">
-          <h1 className="Title">Cite-Count</h1>
-          <h2 className="Subheading">Word counts (sans citations)</h2>
-          <p className="Info">{wordCount(this.state.text)}</p>
+          <h1>Cite-Count</h1>
+          <h2>Word counts (sans citations)</h2>
+          <Data data={this.analyseText(this.state.text)}/>
           <p className="Disclaimer">
             * All content between brackets is excluded from the final word
             count, including bracketed comments.
@@ -63,28 +67,6 @@ class App extends React.Component {
   }
 }
 
-class Textbox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
 
-  handleChange(e) {
-    this.props.onTextChange(e.target.value);
-  }
 
-  render() {
-    const text = this.props.text;
-    return (
-      <div className="Input">
-        <textarea
-          className="TextArea"
-          value={text}
-          onChange={this.handleChange}
-        />
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App/>, document.getElementById("root"));

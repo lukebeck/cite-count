@@ -66,3 +66,7 @@ textarea {
   font-size: .7rem;
   color: rgb(130,130,130)
 }
+
+span {
+  color: rgb(50,100,250);
+}
